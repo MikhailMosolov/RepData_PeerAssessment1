@@ -19,11 +19,16 @@ data$date<-as.Date(data$date)
 stepsdate<-dplyr::group_by(data, date)
 stepsdaily<-dplyr::summarize(stepsdate, stepsdaily = sum(steps, na.rm=TRUE))
 hist(stepsdaily$stepsdaily)
+summary(stepsdaily$stepsdaily)
 
+# I prefer either to exclude the days with 0 values or to not remove NA to get more clear understanding
+stepsdaily<- stepsdaily[stepsdaily$stepsdaily!=0,]
+hist(stepsdaily$stepsdaily)
 summary(stepsdaily$stepsdaily)
 ```
-##### Mean of the total number of steps taken per day equals 9354
-##### Median of the total number of steps taken per day equals 10395    
+##### Mean of the total number of steps taken per day equals 9354 or 1076* 
+##### Median of the total number of steps taken per day equals 10395 or 10765* 
+##### (*) - excluding NA days
 
 ### What is the average daily activity pattern?
 
@@ -43,8 +48,9 @@ stepsavg[stepsavg$stepsavg==max(stepsavg$stepsavg),]
 ```{r}
 colSums(is.na(data))
 ``` 
-##### Total missing values in the dataset equal 2304  
-##### Thera are 8 whole days with no step data. Thus I suggest to impute the missing values based on averaged intervals across the set.
+##### Total missing values in the dataset equal 2304 
+##### There are 8 whole days with no step data. Thus I suggest to impute the missing values based on averaged intervals across 
+##### the set.
 
 ```{r}
 stepsavg$stepsavg<-as.integer(round(stepsavg$stepsavg))
@@ -63,6 +69,9 @@ summary(stepsdaily$stepsdaily)
 ###### Inference: data imputing significantly decreased number of days with 0-5000 step count and noticeably augmented number of days  
 ###### with 10000-15000 step count. There is a 3041 step augmentation in 1st quartile, mean and median values increased by   
 ###### 1412 and 367 steps respectively.  
+###### While ignoring NA at the beginning of EDA does't give such a large differene. Due to artificially aumented days of mesurments, 1st and 3rd quartiles increased, while  
+###### mean and median values remaind almost the same.
+
 
 ### Are there differences in activity patterns between weekdays and weekends?
 

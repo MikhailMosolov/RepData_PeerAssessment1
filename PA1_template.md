@@ -23,7 +23,7 @@ stepsdaily<-dplyr::summarize(stepsdate, stepsdaily = sum(steps, na.rm=TRUE))
 hist(stepsdaily$stepsdaily)
 ```
 
-![plot of chunk unnamed-chunk-44](figure/unnamed-chunk-44-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 ```r
 summary(stepsdaily$stepsdaily)
@@ -33,8 +33,26 @@ summary(stepsdaily$stepsdaily)
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##       0    6778   10395    9354   12811   21194
 ```
-##### Mean of the total number of steps taken per day equals 9354
-##### Median of the total number of steps taken per day equals 10395    
+
+```r
+# I prefer either to exclude the days with 0 values or to not remove NA to get more clear understanding
+stepsdaily<- stepsdaily[stepsdaily$stepsdaily!=0,]
+hist(stepsdaily$stepsdaily)
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
+
+```r
+summary(stepsdaily$stepsdaily)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##      41    8841   10765   10766   13294   21194
+```
+##### Mean of the total number of steps taken per day equals 9354 or 1076* 
+##### Median of the total number of steps taken per day equals 10395 or 10765* 
+##### (*) - excluding NA days
 
 ### What is the average daily activity pattern?
 
@@ -45,7 +63,7 @@ stepsavg<-dplyr::summarize(stepsinterval, stepsavg = mean(steps, na.rm=TRUE))
 with(stepsavg, plot(interval, stepsavg, type="l"))
 ```
 
-![plot of chunk unnamed-chunk-45](figure/unnamed-chunk-45-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
 stepsavg$stepsavg<-round(stepsavg$stepsavg,2)
@@ -72,8 +90,9 @@ colSums(is.na(data))
 ##    steps     date interval 
 ##     2304        0        0
 ```
-##### Total missing values in the dataset equal 2304  
-##### Thera are 8 whole days with no step data. Thus I suggest to impute the missing values based on averaged intervals across the set.
+##### Total missing values in the dataset equal 2304 
+##### There are 8 whole days with no step data. Thus I suggest to impute the missing values based on averaged intervals across 
+##### the set.
 
 
 ```r
@@ -98,7 +117,7 @@ stepsdaily<-dplyr::summarize(stepsdate, stepsdaily = sum(steps))
 hist(stepsdaily$stepsdaily)
 ```
 
-![plot of chunk unnamed-chunk-47](figure/unnamed-chunk-47-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 summary(stepsdaily$stepsdaily)
@@ -114,6 +133,9 @@ summary(stepsdaily$stepsdaily)
 ###### Inference: data imputing significantly decreased number of days with 0-5000 step count and noticeably augmented number of days  
 ###### with 10000-15000 step count. There is a 3041 step augmentation in 1st quartile, mean and median values increased by   
 ###### 1412 and 367 steps respectively.  
+###### While ignoring NA at the beginning of EDA does't give such a large differene. Due to artificially aumented days of mesurments, 1st and 3rd quartiles increased, while  
+###### mean and median values remaind almost the same.
+
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
@@ -140,7 +162,7 @@ ggplot(stepsavg, aes(interval, stepsavg, colour=weekdayORweekend)) +
 geom_line() + facet_wrap(~ weekdayORweekend,nrow=2)
 ```
 
-![plot of chunk unnamed-chunk-49](figure/unnamed-chunk-49-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 # Optional
@@ -153,7 +175,7 @@ xyplot(stepsavg~interval|factor(weekdayORweekend),
        layout=c(1,2))
 ```
 
-![plot of chunk unnamed-chunk-49](figure/unnamed-chunk-49-2.png)
+![](PA1_template_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 
 
