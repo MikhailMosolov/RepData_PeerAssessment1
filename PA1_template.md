@@ -50,7 +50,7 @@ summary(stepsdaily$stepsdaily)
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##      41    8841   10765   10766   13294   21194
 ```
-##### Mean of the total number of steps taken per day equals 9354 or 10766* 
+##### Mean of the total number of steps taken per day equals 9354 or 1076* 
 ##### Median of the total number of steps taken per day equals 10395 or 10765* 
 ##### (*) - excluding NA days
 
@@ -134,7 +134,7 @@ summary(stepsdaily$stepsdaily)
 ###### with 10000-15000 step count. There is a 3041 step augmentation in 1st quartile, mean and median values increased by   
 ###### 1412 and 367 steps respectively.  
 ###### While ignoring NA at the beginning of EDA does't give such a large differene. Due to artificially aumented days of mesurments, 1st and 3rd quartiles 
-###### increased, while mean and median values remained almost the same.
+###### increased, while mean and median values remaind almost the same.
 
 
 ### Are there differences in activity patterns between weekdays and weekends?
